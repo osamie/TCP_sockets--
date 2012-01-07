@@ -1,0 +1,4 @@
+First run bin/TCPServer on a separate shell window.
+Then bin/TCPClient on another.
+
+More info later.
