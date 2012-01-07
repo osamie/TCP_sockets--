@@ -1,0 +1,12 @@
+~inventory~
+#1001	X&Y	Hedley	100	9
+#0002	X&Y	Snow Patrol	100	29
+#03301	Violethill	Coldplay	100	90
+#0021	X&Y	Coldplay	100	99
+#2001	Radio	Lupe Fiasco	900	39
+#00091	X&Y	Coldplays	100	59
+#00011	VioletHill	RadioHead	100	97
+#11111	Unknown	Beatles		100	91
+
+	
+
