@@ -5,6 +5,7 @@ import java.net.*;
 
 class TCPClient 
 {
+	
  public static void main(String argv[]) throws Exception
  {
   String FromServer;
@@ -58,6 +59,24 @@ class TCPClient
         	 clientSocket.close();
             break;
          }
+         
+         String cmd;
+         
+         if (ToServer.equals("B#")){
+        	 //cmd = ToServer.substring(4);
+        	 outToServer.println(ToServer);
+        	 //String readMonitor = "";
+        	 
+        	 //while ((inFromServer.ready())){// && !(readMonitor.contains("$$"))){
+        		 //readMonitor = inFromServer.readLine(); 
+        	 System.out.println("MAKING PURCHASE...");
+         	 Thread.sleep(1000); //waiting for server response	
+        	 System.out.println( inFromServer.readLine() + "\n");
+         	//}
+        	 
+         }
+         
+         //if (ToServer.startsWith()("quit")
          
         else
         {

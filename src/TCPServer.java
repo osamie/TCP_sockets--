@@ -16,16 +16,50 @@ class TCPServer
 		itemCode = itemCode.trim();
 		
 		try {
-		    BufferedReader in = new BufferedReader(new FileReader("inventory.txt"));
+			File oldFile = new File("inventory.txt");
+		    BufferedReader in = new BufferedReader(new FileReader(oldFile));
 		    String str;
+		    StringBuffer sb = new StringBuffer();
+		    
 		    while(in.ready()){
 		    	
 		    	str = in.readLine();
 		    	if (str.startsWith(itemCode)){
-		    		in.close();
-		    		return str;
+		    		String [] arr = str.split("\t");
+		    		
+		    		int q = Integer.parseInt(arr[arr.length-1]);
+		    		//q++; 
+		    		arr[arr.length-1] = "" + (q+1);
+		    		sb.append(arr);
+		    		continue;
+		    		//in.close();
+		    		//return str;
 		    	}
+		    	
+		    	
+		    	
+		    	sb.append(str);
+		    	
+		    	
 		    }
+		    
+		    if (oldFile.exists()){
+		    	oldFile.delete();
+		    	oldFile.createNewFile();
+		    	
+		    	
+		    	BufferedWriter out = new BufferedWriter(new FileWriter(oldFile));
+		    	
+		    	out.write(sb.toString());
+		    	out.close();
+	    	}
+		    
+		    
+		    
+		    in.close();
+		    
+		    
+		    
 		    
 		    
 		    
@@ -133,7 +167,7 @@ class TCPServer
             		itemCode = itemCode.trim();
             		outToClient.println(updateQty(itemCode));
             		System.out.println("Item " + fromclient + " has been updated in the inventory.");
-            		outToClient.println("Item " + fromclient + " has been updated in the inventory.");
+            		outToClient.println("Item " + fromclient + " has been updated in the inventory. \n $$");
             		
             	}
             	
