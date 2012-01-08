@@ -12,40 +12,29 @@ class TCPServer
 	
 	public static String updateQty(String Bcode){
 		//Charset charset = Charset.forName("US-ASCII");
-		try {
-			File file = new File("inventory.txt");
-			byte[] b = new byte[(int) file.length()];  
-			
-			FileInputStream invStream = new FileInputStream(file);
-			invStream.read(b);
-			
-			
-			
-			
-			//return new FileInputStream("inventory.txt");
-			
-			DataInputStream in = new DataInputStream(invStream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String currentLine;
-			
-		    /**while(br.ready()){
-		    	currentLine = br.readLine();
-		    	if (currentLine.startsWith(Bcode)){
-		    		
-		    		System.out.println("HERE YOU GO!" + currentLine);
-		    	}
-		    }**/
-			if (br.ready()) return "HE SAID READY TO READ!"; 
-				//throw new RuntimeException("stream said ready!");
-			
-			
-			return " not ready";
-		} catch (IOException x) {
-			System.out.println("Could not read inventory");
-		    System.err.format("IOException: %s%n", x);
-		}
+		String itemCode = Bcode.replace('B', ' ');
+		itemCode = itemCode.trim();
 		
-		return "not ready after";
+		try {
+		    BufferedReader in = new BufferedReader(new FileReader("inventory.txt"));
+		    String str;
+		    while(in.ready()){
+		    	
+		    	str = in.readLine();
+		    	if (str.startsWith(itemCode)){
+		    		in.close();
+		    		return str;
+		    	}
+		    }
+		    
+		    
+		    
+		} catch (IOException e) {
+			System.err.print(" oh oh ");
+		}
+		return "item not found!";
+		
+				
 		
 		
 	}
@@ -140,7 +129,9 @@ class TCPServer
             		}
             		System.out.println("scanning inventory for item...\n");
             		Thread.sleep(990);
-            		outToClient.println(updateQty(fromclient));
+            		String itemCode = fromclient.replace('B',' ');
+            		itemCode = itemCode.trim();
+            		outToClient.println(updateQty(itemCode));
             		System.out.println("Item " + fromclient + " has been updated in the inventory.");
             		outToClient.println("Item " + fromclient + " has been updated in the inventory.");
             		
